@@ -46,7 +46,7 @@ def init_db():
         """, (
             "Admin",
             "admin@traffix.com",
-            generate_password_hash(os.environ.get("Admin_is_safe@123")),
+            generate_password_hash(os.environ.get("ADMIN_PASSWORD")),
             "admin"
         ))
 
