@@ -17,6 +17,16 @@ The system provides a simulated traffic monitoring environment, displays traffic
 - Admin Issue Management
 - Responsive Web Interface
 
+## Digital Electronics Concepts Used
+
+TRAFFIX demonstrates the application of Digital Electronics concepts through software-based traffic simulation and logical decision-making.
+
+- **Priority-Based Logic:** Selects the direction with the highest traffic volume to receive priority.
+- **Combinational Logic:** Uses traffic-related inputs, such as vehicle count and density, to determine the appropriate signal timing.
+- **Digital Control Logic:** Represents traffic management as a rule-based decision system for controlling signal timing.
+
+**Note:** These concepts are demonstrated through software simulation and logical modelling rather than physical digital circuits or hardware components.
+
 ## Technologies Used
 - Python
 - Flask
