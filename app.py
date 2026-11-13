@@ -4,9 +4,12 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import sqlite3
 import random
 from functools import wraps
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
 app = Flask(__name__)
-app.secret_key = "traffix_dev_secret_change_later"
+app.secret_key = os.environ.get("SECRET_KEY")
 
 # Database Setup
 def init_db():
@@ -43,7 +46,7 @@ def init_db():
         """, (
             "Admin",
             "admin@traffix.com",
-            generate_password_hash("Admin@123"),
+            generate_password_hash(os.environ.get("Admin_is_safe@123")),
             "admin"
         ))
 
