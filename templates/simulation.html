@@ -1,0 +1,132 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TRAFFIX | Traffic Simulation</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="logo">
+    <img src="/static/images/Screenshot 2026-11-12 134806.png" alt="TRAFFIX Logo">
+</div>
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/user/dashboard">User Dashboard</a>
+            <a href="/admin/dashboard">Admin Dashboard</a>
+        </div>
+    </nav>
+
+    <main class="dashboard">
+
+        <section class="dashboard-heading">
+            <p>INTELLIGENT TRAFFIC MANAGEMENT</p>
+            <h1>Traffic Simulation</h1>
+            <p>Four-way intersection traffic analysis and adaptive signal timing.</p>
+        </section>
+
+
+                <section class="intersection-section">
+            <h2>Four-Way Intersection</h2>
+
+            <div class="intersection-visual">
+
+                <div class="road-label north">NORTH</div>
+                <div class="road-label south">SOUTH</div>
+                <div class="road-label east">EAST</div>
+                <div class="road-label west">WEST</div>
+
+                <div class="intersection-road vertical-road"></div>
+                <div class="intersection-road horizontal-road"></div>
+
+                <div class="signal-indicator north-signal {% if next_green == 'North' %}active{% endif %}"></div>
+
+<div class="signal-indicator south-signal {% if next_green == 'South' %}active{% endif %}"></div>
+
+<div class="signal-indicator east-signal {% if next_green == 'East' %}active{% endif %}"></div>
+
+<div class="signal-indicator west-signal {% if next_green == 'West' %}active{% endif %}"></div>
+
+
+                <div class="intersection-center">
+                    <span>TRAFFIX</span>
+                    <small>SMART INTERSECTION</small>
+                </div>
+
+            </div>
+
+            <p class="intersection-note">
+                Conceptual four-way intersection. Traffic conditions are simulated.
+            </p>
+        </section>
+
+
+        <section>
+            <h2>Intersection Overview</h2>
+
+            <div class="dashboard-grid">
+
+                {% for direction, data in traffic.items() %}
+
+                <div class="dashboard-card" data-direction="{{ direction }}">
+    <h3>{{ direction }} Direction</h3>
+
+    <p class="metric vehicle-count">{{ data.vehicles }}</p>
+    <p>Vehicles detected (simulated)</p>
+
+    <p>Density:
+        <strong class="traffic-density">{{ data.density }}</strong>
+    </p>
+
+    <p>Recommended Green Time:
+        <strong class="green-time">{{ data.green_time }}</strong>
+        seconds
+    </p>
+</div>
+
+                {% endfor %}
+
+            </div>
+        </section>
+
+        <section class="signal-section">
+
+    <div class="dashboard-card" id="priority-card">
+    <h2>Next Green Signal</h2>
+
+    <p class="metric" id="priority-direction">{{ next_green }}</p>
+
+    <p>Direction selected based on the highest simulated vehicle count.</p>
+
+    <p class="metric">
+        <span id="priority-duration">{{ green_duration }}</span> seconds
+    </p>
+
+    <p>Recommended Green Signal Duration</p>
+</div>
+
+</section>
+
+        <section class="signal-section">
+            <div class="dashboard-card">
+                <h2>Simulation Information</h2>
+                <p>Traffic values are randomly generated for demonstration.</p>
+                <p>No real-world traffic signals are connected.</p>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>TRAFFIX | Smarter Signals. Smoother Streets.</p>
+        <p>Traffic Simulation — Academic Prototype</p>
+    </footer>
+
+    <script src="/static/js/script.js"></script>
+
+</body>
+</html>

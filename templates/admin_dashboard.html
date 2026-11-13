@@ -1,0 +1,153 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TRAFFIX | Admin Dashboard</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="logo">
+    <img src="/static/images/Screenshot 2026-11-12 134806.png" alt="TRAFFIX Logo">
+</div>
+        <div class="nav-links">
+    <a href="/">Home</a>
+    <a href="#overview">Overview</a>
+    <a href="#reports">Reports</a>
+    <a href="/simulation">Simulation</a>
+    <a href="/logout" class="logout-btn">Logout</a>
+</div>
+    </nav>
+
+    <main class="dashboard">
+
+        <section class="dashboard-heading">
+            <p>TRAFFIC MANAGEMENT SYSTEM</p>
+            <h1>Admin Dashboard</h1>
+            <p>Monitor traffic reports and manage system information.</p>
+        </section>
+
+       
+<section id="overview" class="signal-section">
+
+    <h2>Live Traffic Monitoring</h2>
+
+    <div class="dashboard-grid">
+
+        {% for direction, data in traffic.items() %}
+
+        <div class="dashboard-card" data-direction="{{ direction }}">
+
+    <h3>{{ direction }} Direction</h3>
+
+    <p class="metric vehicle-count">{{ data.vehicles }}</p>
+    <p>Simulated Vehicles</p>
+
+    <p>Traffic Density:
+        <strong class="traffic-density">{{ data.density }}</strong>
+    </p>
+
+    <p>Recommended Green Time:
+        <strong class="green-time">{{ data.green_time }}</strong>
+        seconds
+    </p>
+
+</div>
+
+        {% endfor %}
+
+    </div>
+
+    <div class="dashboard-card" id="priority-card">
+
+    <h2>Next Priority Direction</h2>
+
+    <p class="metric" id="priority-direction">
+        {{ next_green }}
+    </p>
+
+    <p>Recommended Green Duration:
+        <strong id="priority-duration">{{ green_duration }}</strong>
+        seconds
+    </p>
+
+</div>
+
+    <p style="color: #ffb347; margin-top: 15px;">
+        Demo simulation data — not connected to actual road signals.
+    </p>
+
+</section>
+
+
+        <section id="reports" class="signal-section">
+            <h2>Submitted Traffic Reports</h2>
+
+            <div class="dashboard-card">
+                {% if reports %}
+
+                <div class="table-container">
+                    <table class="reports-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Location</th>
+                                <th>Issue Category</th>
+                                <th>Description</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {% for report in reports %}
+                            <tr>
+                                <td>#{{ report.id }}</td>
+                                <td>{{ report.location }}</td>
+                                <td>{{ report.issue_type }}</td>
+                                <td>{{ report.description }}</td>
+                                <td>
+                                    <form action="/update-report/{{ report.id }}" method="POST">
+                                        <select name="status">
+                                            <option value="Pending"
+                                            {% if report.status == 'Pending' %}selected{% endif %}>
+                                            Pending
+                                            </option>
+                                            <option value="Resolved"
+                                            {% if report.status == 'Resolved' %}selected{% endif %}>
+                                            Resolved
+                                            </option>
+                                        </select>
+                                        <button type="submit">Update</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                {% else %}
+
+                <p>No traffic reports have been submitted yet.</p>
+
+                {% endif %}
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>TRAFFIX | Smarter Signals. Smoother Streets.</p>
+        <p>Admin Control Panel — Academic Prototype</p>
+    </footer>
+
+
+    <script src="/static/js/script.js"></script>
+
+
+</body>
+</html>

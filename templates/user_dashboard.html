@@ -1,0 +1,131 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TRAFFIX | User Dashboard</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="logo">
+    <img src="/static/images/Screenshot 2026-11-12 134806.png" alt="TRAFFIX Logo">
+</div>
+        <div class="nav-links">
+    <a href="/">Home</a>
+    <a href="#traffic">Traffic</a>
+    <a href="#report">Report Issue</a>
+    <a href="/simulation">Simulation</a>
+    <a href="/logout" class="logout-btn">Logout</a>
+</div>
+    </nav>
+
+    <main class="dashboard">
+
+        <section class="dashboard-heading">
+            <p>SMARTER SIGNALS. SMOOTHER STREETS.</p>
+            <h1>Traffic Dashboard</h1>
+            <p>Welcome to your personal traffic information portal.</p>
+        </section>
+
+        <section id="traffic" class="traffic-overview">
+            <h2>Traffic Overview</h2>
+
+            <div class="dashboard-grid">
+
+                <div class="dashboard-card">
+                    <h3>Traffic Density</h3>
+                    <p class="metric" id="user-density">{{ traffic[next_green]["density"] }}</p>
+                    <p>Estimated traffic condition</p>
+                </div>
+
+                <div class="dashboard-card">
+                    <h3>Vehicles in Priority Direction</h3>
+                    <p class="metric" id="user-vehicles">{{ traffic[next_green]["vehicles"] }}</p>
+                    <p>Simulated vehicle count in selected direction</p>
+                </div>
+
+                <div class="dashboard-card">
+                    <h3>Distance to Signal</h3>
+                    <p class="metric">250 m</p>
+                    <p>Approximate distance</p>
+                </div>
+
+                <div class="dashboard-card">
+                    <h3>Recommended Green Duration</h3>
+                    <p class="metric">
+    <span id="priority-duration">{{ green_duration }}</span> seconds
+</p>
+                    <p>Recommended signal duration for priority direction</p>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="signal-section">
+            <h2>Signal Information</h2>
+
+            <div class="dashboard-card signal-card">
+                <div>
+                    <h3>Current Signal</h3>
+                    <p class="metric">RED</p>
+                </div>
+
+                <div>
+                    <h3>Priority Direction</h3>
+                    <p class="metric">
+    <span id="priority-direction">{{ next_green }}</span> Direction
+</p>
+                    <p>Selected based on simulated vehicle count</p>
+                </div>
+
+                <p class="notice">
+                    Demo data only — not connected to actual road signals.
+                </p>
+            </div>
+        </section>
+
+        <section id="report" class="report-section">
+            <h2>Report a Traffic Issue</h2>
+            <p>Help identify traffic signal faults and road-related issues.</p>
+
+            <form id="reportForm" action="/submit-report" method="POST">
+
+                <label for="location">Location</label>
+                <input type="text" id="location" name="location"
+                    placeholder="Enter location" required>
+
+                <label for="issueType">Issue Category</label>
+                <select id="issueType" name="issue_type" required>
+                    <option value="">Select an issue</option>
+                    <option>Faulty Traffic Signal</option>
+                    <option>Signal Not Working</option>
+                    <option>Road Damage</option>
+                    <option>Other Traffic Issue</option>
+                </select>
+
+                <label for="description">Description</label>
+                <textarea id="description" name="description"
+                    placeholder="Describe the issue..." required></textarea>
+
+                <button type="submit">Submit Report</button>
+
+                <p id="reportMessage"></p>
+
+            </form>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>TRAFFIX | Smarter Signals. Smoother Streets.</p>
+        <p>Academic Prototype — Simulated Traffic Information</p>
+    </footer>
+
+    <script src="/static/js/script.js"></script>
+
+</body>
+</html>
